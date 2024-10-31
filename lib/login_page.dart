@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),),
                   Text("Register Now",
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Colors.deepPurple,
                     fontWeight: FontWeight.bold
                   ),),
                 ],
