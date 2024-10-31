@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,19 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  Future signIn() async{
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim()
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,15 +106,18 @@ class _LoginPageState extends State<LoginPage> {
                 //sign in button
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Container(
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(color: Colors.deepPurple,
-                    borderRadius: BorderRadius.circular(12)),
-                    child: const Center(
-                      child: Text("Sign In",
-                      style: TextStyle(color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18),),
+                  child: GestureDetector(
+                    onTap: signIn,
+                    child: Container(
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(color: Colors.deepPurple,
+                      borderRadius: BorderRadius.circular(12)),
+                      child: const Center(
+                        child: Text("Sign In",
+                        style: TextStyle(color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),),
+                      ),
                     ),
                   ),
                 ),
