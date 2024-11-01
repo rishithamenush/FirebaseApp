@@ -21,19 +21,19 @@ class ErrorBox extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 15),
           Text(
             message,
-            style: const TextStyle(fontSize: 12),
+            style: const TextStyle(fontSize: 16),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 15),
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text("OK", style: TextStyle(color: Colors.blue)),
+            child: const Text("OK", style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold, color: Colors.deepPurple)),
           ),
         ],
       ),
