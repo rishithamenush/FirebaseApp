@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../widgets/error_box.dart';
+
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;
   const RegisterPage({super.key, required this.showLoginPage});
@@ -14,19 +16,33 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
-  Future signUp() async{
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _emailController.text.trim()
-    );
+  Future signUp() async {
+    if (passwordConfirmed()) {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _emailController.text.trim()
+      );
+    }
+  }
+
+  bool passwordConfirmed() {
+    if (_passwordController.text.trim() ==
+        _confirmPasswordController.text.trim()) {
+      return true;
+    } else {
+      showErrorDialog(context, "Password Error", "Passwords do not match");
+      return false;
+    }
   }
 
 
@@ -103,6 +119,27 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 20,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextField(
+                    controller: _confirmPasswordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.deepPurple),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      hintText: "Confirm Password",
+                      fillColor: Colors.white,
+                      filled: true,
+                    ),
+                  ),
+                ),
 
                 const SizedBox(height: 15,),
                 //sign in button
@@ -147,6 +184,24 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         ),
       ),
+    );
+  }
+  void showErrorDialog(BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 40, vertical: 34),
+          child: ErrorBox(
+            title: title,
+            message: message,
+          ),
+        );
+      },
     );
   }
 }
