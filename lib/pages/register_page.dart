@@ -23,10 +23,10 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future signUp() async{
-    // await FirebaseAuth.instance.signInWithEmailAndPassword(
-    //     email: _emailController.text.trim(),
-    //     password: _passwordController.text.trim()
-    // );
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _emailController.text.trim()
+    );
   }
 
 
