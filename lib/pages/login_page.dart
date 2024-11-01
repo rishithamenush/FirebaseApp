@@ -171,6 +171,7 @@ class _LoginPageState extends State<LoginPage> {
                             "Not a member? ",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontSize: 18.0
                             ),
                           ),
                           GestureDetector(
@@ -180,6 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextStyle(
                                 color: Colors.deepPurple,
                                 fontWeight: FontWeight.bold,
+                                  fontSize: 18.0
                               ),
                             ),
                           ),
