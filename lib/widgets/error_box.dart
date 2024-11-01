@@ -31,9 +31,20 @@ class ErrorBox extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 15),
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text("OK", style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold, color: Colors.deepPurple)),
+            style: OutlinedButton.styleFrom(
+              backgroundColor: Colors.deepPurple.withOpacity(0.9),
+              side: const BorderSide(color: Colors.deepPurple, width: 0.1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8), // Rounded corners
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            ),
+            child: const Text(
+              "OK",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
           ),
         ],
       ),
