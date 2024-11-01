@@ -1,15 +1,35 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final VoidCallback showLoginPage;
+  const RegisterPage({super.key, required this.showLoginPage});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future signUp() async{
+    // await FirebaseAuth.instance.signInWithEmailAndPassword(
+    //     email: _emailController.text.trim(),
+    //     password: _passwordController.text.trim()
+    // );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,17 +41,17 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(
-                  Icons.sports_gymnastics,
+                  Icons.shield_moon_outlined,
                   size: 100,
                 ),
                 //login animation
-                Text("Hello Again!",
+                Text("Hello There!",
                   style: GoogleFonts.bebasNeue(
                       fontSize: 54
                   ),),
                 const SizedBox(height: 10,),
 
-                const Text("Welcome back, you\'ve been missed!",
+                const Text("Register Below with your Details",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -89,13 +109,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: GestureDetector(
-                    onTap: signIn,
+                    onTap: signUp,
                     child: Container(
                       padding: EdgeInsets.all(15),
                       decoration: BoxDecoration(color: Colors.deepPurple,
                           borderRadius: BorderRadius.circular(12)),
                       child: const Center(
-                        child: Text("Sign In",
+                        child: Text("Sign Up",
                           style: TextStyle(color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 18),),
@@ -108,13 +128,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Forgot Password? ",
+                    const Text("I am a Member ",
                       style: TextStyle(
                           fontWeight: FontWeight.bold
                       ),),
                     GestureDetector(
-                      onTap: widget.showRegisterPage,
-                      child: const Text("Register Now",
+                      onTap: widget.showLoginPage,
+                      child: const Text("Login Now",
                         style: TextStyle(
                             color: Colors.deepPurple,
                             fontWeight: FontWeight.bold

@@ -1,4 +1,5 @@
 import 'package:firebase_app/pages/login_page.dart';
+import 'package:firebase_app/pages/register_page.dart';
 import 'package:flutter/cupertino.dart';
 
 class AuthPage extends StatefulWidget {
@@ -11,12 +12,18 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   bool showLoginPage = true;
 
+  void toggleScreens() {
+    setState(() {
+      showLoginPage = !showLoginPage;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    if(showLoginPage){
-      return LoginPage(showRegisterPage: showRegisterPage);
-    }else{
-      return RegisterPage();
+    if (showLoginPage) {
+      return LoginPage(showRegisterPage: toggleScreens);
+    } else {
+      return RegisterPage(showLoginPage: toggleScreens);
     }
   }
 }
